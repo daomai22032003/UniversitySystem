@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Login Page</title>
+    <title>Quản lý Sinh Viên Và Giảng Viên</title>
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -95,28 +95,47 @@
 .btn-primary:hover {
     opacity: 0.9;
 }
+.is-danger {
+    color: red;
+}
+
 
   </style>
   <body class="login-page bg-body-secondary">
     <div class="login-box">      
       <!-- /.login-logo -->
-      <div class="card">
-        <div class="login-logo">
-        <a href="../index2.html"><b>ĐĂNG NHẬP</b></a>
-      </div>
-        <div class="card-body login-card-body">
-                  
-          <form action="../index3.html" method="post">
-            <div class="input-group mb-3">
-              <input type="Mã Sinh Viên" class="form-control" placeholder="Mã Sinh Viên" />
-              <div class="input-group-text"><span class="bi bi-envelope"></span></div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" />
-              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
-            </div>
-            <!--begin::Row-->
-            <div class="row">
+        <div class="card">
+          <div class="login-logo">
+          <a href="../index2.html"><b>ĐĂNG NHẬP</b></a>
+        </div>
+          <div class="card-body login-card-body">
+                    
+          <form action="{{ route('postLogin') }}" method="post">
+            @csrf
+            @if(session('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            @if(session('success'))
+          <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+           
+
+              <div class="input-group mb-3">
+                <input type="Mã Sinh Viên" name="username" value="{{ old('username') }}" class="form-control" placeholder="Mã Sinh Viên" />
+                
+                <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+                
+              </div>
+              <p class="help is-danger">{{ $errors->first('username') }}</p>
+              <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" />
+                
+                <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+               
+              </div>
+               <p class="help is-danger">{{ $errors->first('password') }}</p>
+              <!--begin::Row-->
+              <div class="row">
               <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
