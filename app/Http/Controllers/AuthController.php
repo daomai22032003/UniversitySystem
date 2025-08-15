@@ -12,18 +12,17 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-     $request->validate([
-        'username' => 'required',
-        'password' => 'required'
-    ]);
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
 
-    $credentials = $request->only('username', 'password');
+        $credentials = $request->only('username', 'password');
 
-    if (Auth::attempt($credentials)) {
-        return redirect('/');
-    }
+        if (Auth::attempt($credentials)) {
+            return redirect('/');
+        }
 
-    return redirect()->route('login')->with('error', 'Sai tài khoản hoặc mật khẩu')->withInput();
-    
+        return redirect()->route('login')->with('error', 'Sai tài khoản hoặc mật khẩu')->withInput();
     }
 }
