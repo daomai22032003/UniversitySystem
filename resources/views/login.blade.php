@@ -106,13 +106,21 @@
       </div>
         <div class="card-body login-card-body">
                   
-          <form action="../index3.html" method="post">
+          <form action="{{ route('postLogin') }}" method="post">
+          @csrf
+          @if(session('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+          @endif
+          @if(session('success'))
+          <div class="alert alert-success">{{ session('success') }}</div>
+          @endif
+
             <div class="input-group mb-3">
-              <input type="Mã Sinh Viên" class="form-control" placeholder="Mã Sinh Viên" />
+              <input type="Mã Sinh Viên" name="username" value="{{ old('username') }}" class="form-control" placeholder="Mã Sinh Viên" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" />
+              <input type="password" name="password" class="form-control" placeholder="Password" />
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
             <!--begin::Row-->
