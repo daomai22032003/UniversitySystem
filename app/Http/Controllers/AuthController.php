@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\LoginRequest;
 class AuthController extends Controller
 {
     public function login()
@@ -10,7 +10,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(LoginRequest $request)
     {
         $request->validate([
             'username' => 'required',
@@ -25,4 +25,6 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with('error', 'Sai tài khoản hoặc mật khẩu')->withInput();
     }
+    
+
 }
