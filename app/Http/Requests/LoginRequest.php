@@ -29,13 +29,13 @@ class LoginRequest extends FormRequest
         
         ];
     }
-    public function messages()
-{
-    return [
-        'username.required' => 'Bạn bắt buộc phải nhập Email',
-        //'username.email' => 'Email không đúng định dạng',
-        'password.required' => 'Bạn bắt buộc phải nhập password',
-         //...
-    ];
-}
-}
+        public function messages()
+    {
+        return [
+            'username.required' => 'Bạn bắt buộc phải nhập Email',
+            //'username.email' => 'Email không đúng định dạng',
+            'password.required' => 'Bạn bắt buộc phải nhập password',
+            //...
+        ];
+    }
+    }

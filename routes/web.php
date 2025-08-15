@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-Route::get('/', function () {
+Route::middleware('auth')->get('/', function () {
     return view('welcome');
 });
 Route::get('login', [AuthController::class, 'login'])->name('login');
