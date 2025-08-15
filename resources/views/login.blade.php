@@ -57,15 +57,55 @@
   </head>
   <!--end::Head-->
   <!--begin::Body-->
+  <style>
+    body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    font-family: Arial, sans-serif;
+}
+
+.login-box {
+    width: 450px; /* rộng hơn */
+}
+
+.card {
+    background: #fff; /* nền trắng */
+    border-radius: 20px; /* bo viền tròn */
+    padding: 40px 30px;
+    min-height: 520px; /* cao hơn */
+    box-shadow: 0 6px 25px rgba(248, 238, 238, 0.15);
+}
+
+.form-control {
+    border-radius: 10px; /* input tròn */
+    padding: 12px;
+}
+
+.btn-primary {
+    border-radius: 10px; /* nút tròn */
+    background: linear-gradient(90deg, #261a35ff, #2575fc);
+    border: none;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+  </style>
   <body class="login-page bg-body-secondary">
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="../index2.html"><b>LOGIN</b></a>
-      </div>
+    <div class="login-box">      
       <!-- /.login-logo -->
       <div class="card">
+        <div class="login-logo">
+        <a href="../index2.html"><b>ĐĂNG NHẬP</b></a>
+      </div>
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+                  
           <form action="../index3.html" method="post">
             <div class="input-group mb-3">
               <input type="Mã Sinh Viên" class="form-control" placeholder="Mã Sinh Viên" />
@@ -80,13 +120,13 @@
               <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+                  <label class="form-check-label" for="flexCheckDefault"> Ghi Nhớ </label>
                 </div>
               </div>
               <!-- /.col -->
               <div class="col-4">
                 <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary">Sign In</button>
+                  <button type="submit" class="btn btn-primary">Đăng Nhập</button>
                 </div>
               </div>
               <!-- /.col -->
@@ -97,9 +137,7 @@
           </div>
           <!-- /.social-auth-links -->
           <p class="mb-1"><a href="forgot-password.html">Quên Mật Khẩu</a></p>
-          <p class="mb-0">
-            <a href="register.html" class="text-center"> Đăng kí </a>
-          </p>
+          
         </div>
         <!-- /.login-card-body -->
       </div>
