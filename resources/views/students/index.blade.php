@@ -75,8 +75,8 @@
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
       <!--begin::Header-->
-      @include('header')
-      @include('sidebar')
+      @include('partials.header')
+      @include('partials.sidebar')
       <!--end::Header-->
       <!--begin::Sidebar-->
       <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">

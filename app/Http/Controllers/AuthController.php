@@ -7,11 +7,11 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
     public function index()
     {
-        return view('index');
+        return view('students.index');
     }
     
     public function postLogin(LoginRequest $request)
