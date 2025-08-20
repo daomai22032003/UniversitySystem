@@ -199,10 +199,10 @@
               </li>
               <li class="nav-header">EXAMPLES</li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('logout') }}" class="nav-link">
                   <i class="nav-icon bi bi-box-arrow-in-right"></i>
                   <p>
-                    Đăng xuất
+                    Đăng Xuất
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
