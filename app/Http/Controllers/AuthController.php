@@ -7,9 +7,13 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
-
+    public function index()
+    {
+        return view('index');
+    }
+    
     public function postLogin(LoginRequest $request)
     {
         $request->validate([
@@ -26,5 +30,5 @@ class AuthController extends Controller
         return redirect()->route('login')->with('error', 'Sai tài khoản hoặc mật khẩu')->withInput();
     }
     
-
-}
+    
+    }
