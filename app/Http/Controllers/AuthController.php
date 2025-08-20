@@ -13,10 +13,7 @@ class AuthController extends Controller
     {
         return view('index');
     }
-    public function sidebar()
-    {
-        return view('sidebar');
-    }
+    
     public function postLogin(LoginRequest $request)
     {
         $request->validate([

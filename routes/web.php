@@ -8,4 +8,3 @@ Route::middleware('auth')->get('/', function () {
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::get('index', [AuthController::class, 'index'])->name('index');
-Route::get('sidebar', [AuthController::class, 'sidebar'])->name('sidebar');

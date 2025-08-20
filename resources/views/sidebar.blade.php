@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="sidebar-wrapper">
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+        <!--begin::Sidebar Brand-->
+        <div class="sidebar-brand">
+          <!--begin::Brand Link-->
+          <a href="./index.html" class="brand-link">
+            <!--begin::Brand Image-->
+            <img
+              src="./assets/img/AdminLTELogo.png"
+              alt="AdminLTE Logo"
+              class="brand-image opacity-75 shadow"
+            />
+            <!--end::Brand Image-->
+            <!--begin::Brand Text-->
+            <span class="brand-text fw-light">AdminLTE 4</span>
+            <!--end::Brand Text-->
+          </a>
+          <!--end::Brand Link-->
+        </div>
+        <!--end::Sidebar Brand-->
+        <!--begin::Sidebar Wrapper-->
+        <div class="sidebar-wrapper">
           <nav class="mt-2">
             <!--begin::Sidebar Menu-->
             <ul
@@ -451,5 +463,5 @@
             <!--end::Sidebar Menu-->
           </nav>
         </div>
-</body>
-</html>
+        <!--end::Sidebar Wrapper-->
+      </aside>
