@@ -10,9 +10,17 @@
             </li>
             <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
             <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
-          </ul>
-          <!--end::Start Navbar Links-->
-          
-        </div>
-        <!--end::Container-->
-      </nav>
+            
+                                                        
+            </ul>
+            <!--end::Start Navbar Links-->
+            <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="{{ route('logout') }}" class="nav-link">
+            <p>Đăng Xuất</p>
+          </a>
+        </li>
+      </ul>
+          </div>
+          <!--end::Container-->
+        </nav>
