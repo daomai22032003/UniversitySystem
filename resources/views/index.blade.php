@@ -76,7 +76,8 @@
     <div class="app-wrapper">
       <!--begin::Header-->
       @include('partials.header')
-      @include('partials.sidebar')                       
+      @include('partials.sidebar') 
+                 
       <footer class="app-footer">
         <!--begin::To the end-->
         <div class="float-end d-none d-sm-inline">Anything you want</div>
