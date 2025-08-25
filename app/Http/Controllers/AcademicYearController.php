@@ -10,9 +10,10 @@ class AcademicYearController extends Controller
 {
     public function index()
 {
-    $academicYears = AcademicYear::paginate(10);
+    $academicYears = \App\Models\AcademicYear::paginate(10); 
     return view('academic_years.index', compact('academicYears'));
 }
+
 
 
     public function create()

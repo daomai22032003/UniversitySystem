@@ -17,6 +17,7 @@ class UpdateAcademicYearRequest extends FormRequest
             'year_name'  => 'required|max:50|unique:academic_years,year_name,' . $this->academic_year->id,
             'start_date' => 'nullable|date',
             'end_date'   => 'nullable|date|after_or_equal:start_date',
+             'status' => 'required|boolean',
         ];
     }
 
