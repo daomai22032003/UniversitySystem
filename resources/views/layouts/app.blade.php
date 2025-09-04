@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE v4 | Dashboard</title>
+    @yield('title')
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -76,19 +76,16 @@
     <div class="app-wrapper">
       <!--begin::Header-->
       @include('partials.header')
-      @include('partials.sidebar')                       
-      <footer class="app-footer">
-        <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Anything you want</div>
-        <!--end::To the end-->
-        <!--begin::Copyright-->
-        <strong>
-          Copyright &copy; 2014-2025&nbsp;
-          <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
-        </strong>
-        All rights reserved.
-        <!--end::Copyright-->
-      </footer>
+      <!--end::Header-->
+
+      <!--begin::Sidebar-->
+      @include('partials.sidebar')
+      <!--end::Sidebar-->
+      <!--begin::App Main-->     
+      <!--end::App Main-->
+      <!--begin::Footer-->
+      @yield('content')
+      @include('partials.footer')
       <!--end::Footer-->
     </div>
     <!--end::App Wrapper-->
