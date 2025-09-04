@@ -8,7 +8,7 @@
              
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">Quản Lý Sinh Viên</span>
+            <span class="brand-text fw-light">Quản Lý Sinh Viên,Giảng Viên</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -47,8 +47,21 @@
               <p>
                 Quản lý Lớp Học
                 <i class="nav-arrow bi bi-chevron-right"></i>
-              </p>
-              
+              </p>             
+            </a>
+            <a href="{{ route('courses.index') }}" class="nav-link">
+              <i class="nav-icon bi bi-table"></i>
+              <p>
+                Quản lý Môn học
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>             
+            </a>
+             <a href="{{ route('students.index') }}" class="nav-link">
+              <i class="nav-icon bi bi-table"></i>
+              <p>
+                Quản lý Sinh Viên
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>             
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">

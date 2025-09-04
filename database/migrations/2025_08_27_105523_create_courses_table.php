@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_models', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('course_code', 20)->unique();
+            $table->string('course_name', 100);
+            $table->text('description')->nullable();
+            $table->integer('credit');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_models');
+        Schema::dropIfExists('courses');
     }
 };

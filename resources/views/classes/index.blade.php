@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-@endsection
-
 @section('content')
 <div class="container">
     <h2>Danh sách lớp</h2>
@@ -15,11 +12,11 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>STT</th>
                 <th>Mã lớp</th>
                 <th>Tên lớp</th>
                 <th>Khoa</th>
-                <th>Năm học</th>
+                <th>kỳ Học</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
@@ -30,14 +27,17 @@
                 <td>{{ $class->id }}</td>
                 <td>{{ $class->class_code }}</td>
                 <td>{{ $class->class_name }}</td>
-                <td>{{ $class->department->name }}</td>
-                <td>{{ $class->academicYear->year ?? '' }}</td>
-                <td>{{ $class->status ? 'Hoạt động' : 'Ngừng' }}</td>
+                <td>{{ $class->department ? $class->department->name : '' }}</td>
+                <td>{{ $class->academicYear ? $class->academicYear->term_name : '' }}</td>
+
+
+                <td>{{ $class->status == 1 ? 'Hoạt động' : 'Không hoạt động' }}</td>
                 <td>
                     <a href="{{ route('classes.edit', $class->id) }}" class="btn btn-primary btn-sm">Sửa</a>
-                    <form action="{{ route('classes.destroy', $class->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button onclick="return confirm('Xóa lớp này?')" class="btn btn-danger btn-sm">Xóa</button>
+                    <form action="{{ route('classes.destroy', $class->id) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                     </form>
                 </td>
             </tr>

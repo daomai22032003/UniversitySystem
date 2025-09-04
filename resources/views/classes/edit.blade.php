@@ -24,15 +24,16 @@
             </select>
         </div>
         <div class="mb-3">
-            <label>Năm học</label>
-            <select name="academic_year_id" class="form-control" required>
-                @foreach($academicYears as $year)
+        <label>Kỳ Học</label>
+        <select name="academic_year_id" class="form-control" required>
+            @foreach($academicYears as $year)
                 <option value="{{ $year->id }}" {{ $class->academic_year_id == $year->id ? 'selected' : '' }}>
-                    {{ $year->year }}
+                    {{ $year->term_name }}
                 </option>
-                @endforeach
-            </select>
-        </div>
+            @endforeach
+        </select>
+    </div>
+
         <button type="submit" class="btn btn-primary">Cập nhật</button>
         <a href="{{ route('classes.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>

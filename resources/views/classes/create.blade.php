@@ -25,7 +25,7 @@
             <label>Năm học</label>
             <select name="academic_year_id" class="form-control" required>
                 @foreach($academicYears as $year)
-                <option value="{{ $year->id }}">{{ $year->year_name }}</option>
+                <option value="{{ $year->id }}">{{ $year->term_name  }}</option>
                 @endforeach
             </select>
         </div>

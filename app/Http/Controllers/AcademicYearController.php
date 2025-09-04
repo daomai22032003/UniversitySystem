@@ -14,8 +14,6 @@ class AcademicYearController extends Controller
     return view('academic_years.index', compact('academicYears'));
 }
 
-
-
     public function create()
     {
         return view('academic_years.create');

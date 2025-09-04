@@ -14,7 +14,7 @@ class UpdateAcademicYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'year_name'  => 'required|max:50|unique:academic_years,year_name,' . $this->academic_year->id,
+            'term_name'  => 'required|max:50|unique:academic_years,term_name,' . $this->academic_year->id,
             'start_date' => 'nullable|date',
             'end_date'   => 'nullable|date|after_or_equal:start_date',
              'status' => 'required|boolean',
@@ -24,8 +24,8 @@ class UpdateAcademicYearRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'year_name.required' => 'Tên năm học không được để trống',
-            'year_name.unique'   => 'Tên năm học đã tồn tại',
+            'term_name.required' => 'Tên kỳ không được để trống',
+            'term_name.unique'   => 'Tên kỳ đã tồn tại',
             'end_date.after_or_equal' => 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu',
         ];
     }

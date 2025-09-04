@@ -17,8 +17,8 @@
     <form action="{{ route('academic_years.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Tên năm học</label>
-            <input type="text" name="year_name" class="form-control" value="{{ old('year_name') }}" required>
+            <label class="form-label">Tên kỳ</label>
+            <input type="text" name="term_name" class="form-control" value="{{ old('term_name') }}" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Ngày bắt đầu</label>

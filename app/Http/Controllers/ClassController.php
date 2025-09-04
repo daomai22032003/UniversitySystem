@@ -16,6 +16,7 @@ class ClassController extends Controller
         return view('classes.index', compact('classes'));
     }
 
+
     // Form thêm mới
     public function create()
     {

@@ -39,8 +39,8 @@
 
 
             <tr>
-                <th>ID</th>
-                <th>Tên năm học</th>
+                <th>STT</th>
+                <th>Tên kỳ</th>
                 <th>Ngày bắt đầu</th>
                 <th>Ngày kết thúc</th>
                 <th>Trạng thái</th>
@@ -48,11 +48,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($academicYears as $year)
+            @foreach($academicYears as $key => $year)
             
             <tr>
-                <td>{{ $year->id }}</td>
-                    <td>{{ $year->year_name }}</td>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $year->term_name }}</td>
                     <td>{{ \Carbon\Carbon::parse($year->start_date)->format('d/m/Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($year->end_date)->format('d/m/Y') }}</td>
                     <td>

@@ -18,8 +18,9 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label class="form-label">Tên năm học</label>
-            <input type="text" name="year_name" class="form-control" value="{{ old('year_name', $academicYear->year_name) }}" required>
+            <label class="form-label">Tên kỳ</label>
+            <input type="text" name="term_name" class="form-control" value="{{ old('term_name', $academicYear->term_name) }}" required>
+          
         </div>
         <div class="mb-3">
             <label class="form-label">Ngày bắt đầu</label>

@@ -16,7 +16,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>#</th>
+                <th>STT</th>
                 <th>Mã khoa</th>
                 <th>Tên khoa</th>
                 <th>Mô tả</th>

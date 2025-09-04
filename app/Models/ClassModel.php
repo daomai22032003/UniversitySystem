@@ -14,8 +14,9 @@ class ClassModel extends Model
         'class_code',
         'class_name',
         'department_id',
+       
         'academic_year_id',
-        'status'
+        'status'               
     ];
 
     // Quan hệ với Khoa
@@ -27,6 +28,6 @@ class ClassModel extends Model
     // Quan hệ với Năm học
     public function academicYear()
     {
-        return $this->belongsTo(AcademicYear::class);
+        return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 }
