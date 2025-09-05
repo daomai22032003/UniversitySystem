@@ -11,7 +11,16 @@ class Student extends Model
     {
         static::deleting(function ($student) {
             $student->user()->delete(); // xóa user khi xóa student
+         // Xóa department liên quan
+         if ($student->department) {
+                $student->department->delete();
+            }
+            // Xóa academic_year liên quan
+        if ($student->academicYear) {
+                $student->academicYear->delete();
+            }
         });
+
     }
     use HasFactory;
 
