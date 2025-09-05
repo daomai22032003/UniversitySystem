@@ -121,12 +121,12 @@
            
 
               <div class="input-group mb-3">
-                <input type="Mã Sinh Viên" name="username" value="{{ old('username') }}" class="form-control" placeholder="Mã Sinh Viên" />
+                <input type="Mã Sinh Viên" name="email" value="{{ old('email') }}" class="form-control" placeholder="Mã Sinh Viên" />
                 
                 <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                 
               </div>
-              <p class="help is-danger">{{ $errors->first('username') }}</p>
+              <p class="help is-danger">{{ $errors->first('email') }}</p>
               <div class="input-group mb-3">
                 <input type="password" name="password" class="form-control" placeholder="Password" />
                 

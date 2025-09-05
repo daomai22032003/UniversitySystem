@@ -8,6 +8,8 @@ use App\Models\ClassModel;
 use App\Models\AcademicYear;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
@@ -22,25 +24,47 @@ class StudentController extends Controller
         $departments = Department::all();
         $classes = ClassModel::all();
         $years = AcademicYear::all();
-        $users = User::all();
-
-        return view('students.create', compact('departments','classes','years','users'));
+        
+        return view('students.create', compact('departments','classes','years'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'student_code' => 'required|unique:students,student_code',
-            'name' => 'required|string|max:100',
-            'user_id' => 'required|exists:users,id',
-            'department_id' => 'required|exists:departments,id',
-            'class_id' => 'required|exists:classes,id',
+            'student_code'     => 'required|unique:students,student_code|max:20',
+            'name'             => 'required|string|max:100',
+            'email'            => 'required|email|unique:users,email|max:100',
+            'department_id'    => 'required|exists:departments,id',
+            'class_id'         => 'required|exists:classes,id',
             'academic_year_id' => 'required|exists:academic_years,id',
         ]);
 
-        Student::create($request->all());
+        // Tạo mật khẩu ngẫu nhiên
+        $plainPassword = '12345';
 
-        return redirect()->route('students.index')->with('success','Thêm sinh viên thành công!');
+        // Tạo user mới
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'username' => $request->student_code,
+            'password' => Hash::make($plainPassword),
+            'role'     => 'student', // nếu có cột role
+        ]);
+
+        // Tạo student gắn với user
+        Student::create([
+            'student_code'     => $request->student_code,
+            'name'             => $request->name,
+            'email'            => $request->email,
+            'phone'            => $request->phone, 
+            'department_id'    => $request->department_id,
+            'class_id'         => $request->class_id,
+            'academic_year_id' => $request->academic_year_id,
+            'user_id'          => $user->id,
+        ]);
+
+        return redirect()->route('students.index')
+            ->with('success', "Thêm sinh viên thành công! Tài khoản: {$request->email} - Mật khẩu: {$plainPassword}");
     }
 
     public function edit(Student $student)
@@ -49,29 +73,46 @@ class StudentController extends Controller
         $classes = ClassModel::all();
         $years = AcademicYear::all();
         $users = User::all();
-
         return view('students.edit', compact('student','departments','classes','years','users'));
     }
 
     public function update(Request $request, Student $student)
     {
         $request->validate([
-            'student_code' => 'required|max:20|unique:students,student_code,'.$student->id,
-            'name' => 'required|string|max:100',
-            'user_id' => 'required|exists:users,id',
-            'department_id' => 'required|exists:departments,id',
-            'class_id' => 'required|exists:classes,id',
+            'student_code'     => 'required|max:20|unique:students,student_code,'.$student->id,
+            'name'             => 'required|string|max:100',
+            'email'            => 'required|email|unique:users,email,'.$student->user_id,
+            'department_id'    => 'required|exists:departments,id',
+            'class_id'         => 'required|exists:classes,id',
             'academic_year_id' => 'required|exists:academic_years,id',
         ]);
 
-        $student->update($request->all());
+        // Update user
+        $student->user->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+        ]);
+
+        // Update student
+        $student->update([
+            'student_code'     => $request->student_code,
+            'name'             => $request->name,
+            'email'            => $request->email,
+            'phone'            => $request->phone,
+            'department_id'    => $request->department_id,
+            'class_id'         => $request->class_id,
+            'academic_year_id' => $request->academic_year_id,
+        ]);
 
         return redirect()->route('students.index')->with('success','Cập nhật sinh viên thành công!');
     }
 
     public function destroy(Student $student)
     {
+        // Nếu muốn xóa luôn user
+        $student->user()->delete();
         $student->delete();
+
         return redirect()->route('students.index')->with('success','Xóa sinh viên thành công!');
     }
 }

@@ -1,40 +1,54 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\LoginRequest;
+
 class AuthController extends Controller
 {
+    // Trang login
     public function login()
     {
         return view('auth.login');
     }
+
+    // Trang chủ
     public function home()
     {
         return view('home');
     }
-    
-    public function postLogin(LoginRequest $request)
+
+    // Xử lý đăng nhập
+    public function postLogin(Request $request)
     {
+        // Validate form
         $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:5',
         ]);
 
-        $credentials = $request->only('username', 'password');
+        // Lấy thông tin đăng nhập
+        $credentials = $request->only('email', 'password');
 
+        // Thử đăng nhập
         if (Auth::attempt($credentials)) {
-            return redirect('/');
+            $request->session()->regenerate();
+            return redirect()->route('home')->with('success', 'Đăng nhập thành công!');
         }
 
-        return redirect()->route('login')->with('error', 'Sai tài khoản hoặc mật khẩu')->withInput();
+        // Sai mật khẩu hoặc email
+        return back()->withErrors([
+            'email' => 'Email hoặc mật khẩu không chính xác.',
+        ])->withInput($request->only('email')); // Giữ lại email
     }
+
+    // Đăng xuất
     public function logout(Request $request)
     {
         Auth::logout();
-         $request->session()->invalidate();
-          $request->session()->regenerateToken();
-          return redirect()->route('login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
-    
-    }
+}
