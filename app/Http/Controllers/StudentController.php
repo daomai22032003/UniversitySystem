@@ -112,11 +112,11 @@ class StudentController extends Controller
     }
 
     public function destroy(Student $student)
-    {
-        // Nếu muốn xóa luôn user
-        $student->user()->delete();
-        $student->delete();
-
+    {       
+        if ($student->user) {
+            $student->delete();         
+            $student->user->delete();  
+         }       
         return redirect()->route('students.index')->with('success','Xóa sinh viên thành công!');
     }
 }

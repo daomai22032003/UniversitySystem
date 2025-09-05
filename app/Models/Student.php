@@ -4,24 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
-    protected static function booted()
-    {
-        static::deleting(function ($student) {
-            $student->user()->delete(); // xóa user khi xóa student
-         // Xóa department liên quan
-         if ($student->department) {
-                $student->department->delete();
-            }
-            // Xóa academic_year liên quan
-        if ($student->academicYear) {
-                $student->academicYear->delete();
-            }
-        });
-
-    }
+    
     use HasFactory;
 
     protected $fillable = [
@@ -38,7 +25,7 @@ class Student extends Model
         'academic_year_id',
         'status'
     ];
-
+  
     // Quan hệ
     public function user()
     {
@@ -58,6 +45,6 @@ class Student extends Model
     {
         return $this->belongsTo(ClassModel::class, 'class_id');
     }
-    
+   
 
 }
