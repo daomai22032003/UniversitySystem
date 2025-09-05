@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
+    
     use HasFactory;
 
     protected $fillable = [
@@ -23,7 +25,7 @@ class Student extends Model
         'academic_year_id',
         'status'
     ];
-
+  
     // Quan hệ
     public function user()
     {
@@ -43,4 +45,6 @@ class Student extends Model
     {
         return $this->belongsTo(ClassModel::class, 'class_id');
     }
+   
+
 }

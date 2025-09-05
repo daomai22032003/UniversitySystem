@@ -28,7 +28,7 @@
         <tbody>
             @foreach($courses as $course)
             <tr>
-                <td>{{ $course->id }}</td>
+                <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $course->course_code }}</td>
                 <td>{{ $course->course_name }}</td>
                 <td>{{ $course->description }}</td>

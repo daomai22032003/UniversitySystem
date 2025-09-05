@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
         return [
              
              'username' => 'required',
-             //'email' => 'required|email',
+             'email' => 'required|email',
             'password' => 'required|string|min:5',
         
         ];
@@ -33,7 +33,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'username.required' => 'Bạn bắt buộc phải nhập Email',
-            //'username.email' => 'Email không đúng định dạng',
+            'username.email' => 'Email không đúng định dạng',
             'password.required' => 'Bạn bắt buộc phải nhập password',
             //...
         ];
