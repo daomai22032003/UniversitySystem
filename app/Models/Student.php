@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    protected static function booted()
+    {
+        static::deleting(function ($student) {
+            $student->user()->delete(); // xóa user khi xóa student
+        });
+    }
     use HasFactory;
 
     protected $fillable = [

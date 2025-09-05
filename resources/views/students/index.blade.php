@@ -12,6 +12,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>STT</th>
                 <th>Mã SV</th>
                 <th>Họ tên</th>
                 <th>Lớp</th>
@@ -25,6 +26,7 @@
         <tbody>
             @foreach($students as $student)
             <tr>
+                <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $student->student_code }}</td>
                 <td>{{ $student->name }}</td>
                 <td>{{ $student->class?->class_name }}</td>

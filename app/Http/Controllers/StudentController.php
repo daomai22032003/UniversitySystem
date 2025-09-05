@@ -30,6 +30,9 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
+        if(User::where('email', $request->email)->exists()){
+    return back()->with('error', 'email đã tồn tại');
+       }
         $request->validate([
             'student_code'     => 'required|unique:students,student_code|max:20',
             'name'             => 'required|string|max:100',
@@ -78,6 +81,7 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
+        
         $request->validate([
             'student_code'     => 'required|max:20|unique:students,student_code,'.$student->id,
             'name'             => 'required|string|max:100',

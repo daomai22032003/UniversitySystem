@@ -24,7 +24,7 @@
         <tbody>
             @foreach($classes as $class)
             <tr>
-                <td>{{ $class->id }}</td>
+                <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $class->class_code }}</td>
                 <td>{{ $class->class_name }}</td>
                 <td>{{ $class->department ? $class->department->name : '' }}</td>
