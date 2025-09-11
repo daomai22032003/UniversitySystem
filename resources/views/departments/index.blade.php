@@ -5,10 +5,16 @@
 
 @section('content')
 <div class="container">
-    <h2>Danh sách Khoa</h2>
+    <h2>Danh sách Khoa</h2>   
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('departments.create') }}" class="btn btn-success">+ Thêm Khoa</a>
 
-    <a href="{{ route('departments.create') }}" class="btn btn-primary mb-3">Thêm Khoa</a>
-
+    <form action="{{ route('departments.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
+        <input type="text" name="search" value="{{ request('search') }}" 
+               class="form-control me-2" placeholder="Nhập mã khoa...">
+        <button type="submit" class="btn btn-primary">Tìm</button>
+    </form>
+</div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

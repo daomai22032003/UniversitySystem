@@ -3,8 +3,16 @@
 @section('content')
 <div class="container">
     <h2>Danh sách lớp</h2>
-    <a href="{{ route('classes.create') }}" class="btn btn-success mb-3">+ Thêm lớp</a>
+   
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('classes.create') }}" class="btn btn-success">+ Thêm lớp</a>
 
+    <form action="{{ route('classes.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
+        <input type="text" name="search" value="{{ request('search') }}" 
+               class="form-control me-2" placeholder="Nhập mã lớp...">
+        <button type="submit" class="btn btn-primary">Tìm</button>
+    </form>
+</div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -26,7 +34,12 @@
             <tr>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $class->class_code }}</td>
-                <td>{{ $class->class_name }}</td>
+                <td>
+                    <a href="{{ route('students.index', ['class_id' => $class->id]) }}">
+                        {{ $class->class_name }}
+                    </a>
+                </td>
+
                 <td>{{ $class->department ? $class->department->name : '' }}</td>
                 <td>{{ $class->academicYear ? $class->academicYear->term_name : '' }}</td>
 

@@ -6,9 +6,16 @@
 @section('content')
 <div class="container">
     <h2>Quản lý môn học</h2>
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('courses.create') }}" class="btn btn-success">+ Thêm môn học</a>
 
-    <a href="{{ route('courses.create') }}" class="btn btn-primary mb-3">Thêm môn học</a>
-
+    <form action="{{ route('courses.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
+        <input type="text" name="search" value="{{ request('search') }}" 
+               class="form-control me-2" placeholder="Nhập mã môn học...">
+        <button type="submit" class="btn btn-primary">Tìm</button>
+    </form>
+</div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

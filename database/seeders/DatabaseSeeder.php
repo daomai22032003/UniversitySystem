@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
 );
         $this->call([
              DepartmentSeeder::class,
-        AcademicYearSeeder::class,
+             AcademicYearSeeder::class,
            
         ]);
 

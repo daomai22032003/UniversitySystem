@@ -13,11 +13,25 @@ use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
-    public function index()
-    {
-        $students = Student::with(['department','class','academicYear','user'])->paginate(10);
-        return view('students.index', compact('students'));
+    public function index(Request $request)
+{
+    $query = Student::with(['department','class','academicYear','user']);
+
+    if ($request->has('class_id')) {
+        $query->where('class_id', $request->class_id);
     }
+     if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('student_code', 'like', "%$search%")
+              ->orWhere('name', 'like', "%$search%");
+        });
+    }
+    $students = $query->paginate(10);
+
+    return view('students.index', compact('students'));
+}
+
 
     public function create()
     {
