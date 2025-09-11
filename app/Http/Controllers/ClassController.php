@@ -10,9 +10,17 @@ use Illuminate\Http\Request;
 class ClassController extends Controller
 {
     // Hiển thị danh sách lớp
-    public function index()
-    {
-        $classes = ClassModel::with(['department', 'academicYear'])->paginate(10);
+    public function index(Request $request)
+    {   
+         $query = ClassModel::with(['department', 'academicYear']);
+        if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('class_code', 'like', "%$search%")
+              ->orWhere('class_name', 'like', "%$search%");
+        });
+    }
+     $classes = $query->paginate(10);
         return view('classes.index', compact('classes'));
     }
 

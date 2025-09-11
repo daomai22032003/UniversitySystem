@@ -7,7 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\TeacherController;
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::middleware('auth')->group(function () {
@@ -24,4 +24,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('classes', ClassController::class);
     Route::resource('courses', CourseController::class);
     Route::resource('students', StudentController::class);
+    Route::resource('teachers', TeacherController::class);
 });

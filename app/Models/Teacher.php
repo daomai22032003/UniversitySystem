@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Teacher extends Model
 {
     
@@ -19,6 +19,7 @@ class Teacher extends Model
         'email',
         'phone',
         'department_id',
+        'class_id', 
         'status'
     ];
 
@@ -32,5 +33,9 @@ class Teacher extends Model
     {
         return $this->belongsTo(Department::class);
        
+    }
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id');
     }
 }

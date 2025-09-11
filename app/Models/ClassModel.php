@@ -13,8 +13,7 @@ class ClassModel extends Model
     protected $fillable = [
         'class_code',
         'class_name',
-        'department_id',
-       
+        'department_id',       
         'academic_year_id',
         'status'               
     ];
@@ -30,4 +29,6 @@ class ClassModel extends Model
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
+    
+
 }

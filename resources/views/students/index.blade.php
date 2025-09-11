@@ -2,8 +2,16 @@
 
 @section('content')
 <div class="container">
-    <h2>Danh sách sinh viên</h2>
-    <a href="{{ route('students.create') }}" class="btn btn-success mb-3">+ Thêm sinh viên</a>
+    <h2>Danh sách sinh viên</h2>  
+     <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{{ route('students.create') }}" class="btn btn-success">+ Thêm sinh viên</a>
+
+    <form action="{{ route('students.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
+        <input type="text" name="search" value="{{ request('search') }}" 
+               class="form-control me-2" placeholder="Nhập tên hoặc mã SV...">
+        <button type="submit" class="btn btn-primary">Tìm</button>
+    </form>
+</div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

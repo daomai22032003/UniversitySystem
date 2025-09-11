@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function index()
-    {
-        $departments = Department::paginate(10);
-        return view('departments.index', compact('departments'));
+    public function index(Request $request)
+{
+    
+    $query = Department::query();
+    if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where('code', 'like', "%$search%");
     }
+    $departments = $query->paginate(10);
+   
+    return view('departments.index', compact('departments'));
+}
+
 
     public function create()
     {

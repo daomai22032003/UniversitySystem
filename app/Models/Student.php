@@ -25,7 +25,7 @@ class Student extends Model
         'academic_year_id',
         'status'
     ];
-  
+
     // Quan hệ
     public function user()
     {

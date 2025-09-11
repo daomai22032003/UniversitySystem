@@ -22,12 +22,12 @@ return new class extends Migration
     $table->string('phone', 20)->nullable();
     $table->unsignedBigInteger('department_id');
     $table->unsignedBigInteger('class_id');
-    $table->string('specialization', 100)->nullable(); // thêm dòng này
+    $table->string('specialization', 100)->nullable(); 
     $table->tinyInteger('status')->default(1);
     $table->timestamps();
 
-    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-    $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+    $table->foreign('user_id')->references('id')->on('users');
+    $table->foreign('department_id')->references('id')->on('departments');
 });
 
     }

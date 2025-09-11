@@ -63,6 +63,13 @@
                 <i class="nav-arrow bi bi-chevron-right"></i>
               </p>             
             </a>
+            <a href="{{ route('teachers.index') }}" class="nav-link">
+              <i class="nav-icon bi bi-table"></i>
+              <p>
+                Quản lý Giảng Viên
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>             
+            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./tables/simple.html" class="nav-link">
