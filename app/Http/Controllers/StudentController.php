@@ -17,7 +17,7 @@ class StudentController extends Controller
 {
     $query = Student::with(['department','class','academicYear','user']);
 
-    if ($request->has('class_id')) {
+    if ($request->has('class_id')&& $request->class_id != '') {
         $query->where('class_id', $request->class_id);
     }
      if ($request->has('search') && $request->search != '') {
@@ -27,9 +27,13 @@ class StudentController extends Controller
               ->orWhere('name', 'like', "%$search%");
         });
     }
+    if ($request->has('department_id') && $request->department_id != '') {
+        $query->where('department_id', $request->department_id);
+    }
     $students = $query->paginate(10);
-
-    return view('students.index', compact('students'));
+     $classes = ClassModel::all();
+     $departments = Department::all();
+    return view('students.index', compact('students','departments', 'classes'));
 }
 
 

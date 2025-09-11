@@ -15,6 +15,9 @@ class TeacherController extends Controller
    {
     
     $query = Teacher::with(['department','class','user']); 
+     if ($request->has('class_id')&& $request->class_id != '') {
+        $query->where('class_id', $request->class_id);
+    }
     if ($request->has('search') && $request->search != '') {
         $search = $request->search;
         $query->where(function($q) use ($search) {
@@ -22,9 +25,13 @@ class TeacherController extends Controller
               ->orWhere('name', 'like', "%$search%");
         });
     }
+    if ($request->has('department_id') && $request->department_id != '') {
+        $query->where('department_id', $request->department_id);
+    }
     $teachers = $query->paginate(10);
-
-    return view('teachers.index', compact('teachers'));
+    $classes = ClassModel::all();
+    $departments = Department::all();
+    return view('teachers.index', compact('teachers','departments', 'classes'));
 }
 
 

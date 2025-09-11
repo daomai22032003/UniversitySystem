@@ -10,20 +10,23 @@ use Illuminate\Http\Request;
 class ClassController extends Controller
 {
     // Hiển thị danh sách lớp
-    public function index(Request $request)
-    {   
-         $query = ClassModel::with(['department', 'academicYear']);
-        if ($request->has('search') && $request->search != '') {
+   public function index(Request $request)
+{   
+    $query = ClassModel::with(['department', 'academicYear']); 
+    if ($request->has('search') && $request->search != '') {
         $search = $request->search;
         $query->where(function($q) use ($search) {
             $q->where('class_code', 'like', "%$search%")
               ->orWhere('class_name', 'like', "%$search%");
         });
+    }   
+    if ($request->has('department_id') && $request->department_id != '') {
+        $query->where('department_id', $request->department_id);
     }
-     $classes = $query->paginate(10);
-        return view('classes.index', compact('classes'));
-    }
-
+    $classes = $query->paginate(10);
+    $departments = Department::all();
+    return view('classes.index', compact('classes', 'departments'));
+}
 
     // Form thêm mới
     public function create()
