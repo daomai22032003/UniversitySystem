@@ -6,12 +6,27 @@
    
     <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('teachers.create') }}" class="btn btn-success">+ Thêm giảng viên</a>
-
-    <form action="{{ route('teachers.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
-        <input type="text" name="search" value="{{ request('search') }}" 
-               class="form-control me-2" placeholder="Nhập tên hoặc mã GV...">
-        <button type="submit" class="btn btn-primary">Tìm</button>
-    </form>
+     <form action="{{ route('teachers.index') }}" method="GET" class="d-flex mb-3" style="max-width: 100%;">    
+    <input type="text" name="search" value="{{ request('search') }}"
+           class="form-control me-2" placeholder="Nhập tên,mã GV...">
+    <select name="department_id" class="form-select me-2">
+        <option value="">-- Tất cả khoa --</option>
+        @foreach($departments as $dept)
+            <option value="{{ $dept->id }}" {{ request('department_id') == $dept->id ? 'selected' : '' }}>
+                {{ $dept->name }}
+            </option>
+        @endforeach
+    </select>
+    <select name="class_id" class="form-select me-2">
+        <option value="">-- Tất cả lớp --</option>
+        @foreach($classes as $cls)
+            <option value="{{ $cls->id }}" {{ request('class_id') == $cls->id ? 'selected' : '' }}>
+                {{ $cls->class_name }}
+            </option>
+        @endforeach
+    </select>
+    <button type="submit" class="btn btn-primary">Tìm</button>
+</form>   
 </div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
