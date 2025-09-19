@@ -5,7 +5,9 @@
     <h2>Danh sách lớp</h2>
    
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('classes.create') }}" class="btn btn-success">+ Thêm lớp</a>       
+        @if(auth()->user()->role === 'admin')
+        <a href="{{ route('classes.create') }}" class="btn btn-success">+ Thêm lớp</a>  
+        @endif     
         <form action="{{ route('classes.index') }}" method="GET" class="d-flex" style="max-width: 500px;">        
             <input type="text" name="search" value="{{ request('search') }}" 
                    class="form-control me-2" placeholder="Nhập mã lớp,tên lớp...">
@@ -37,6 +39,7 @@
                 <th>Tên lớp</th>
                 <th>Khoa</th>
                 <th>Kỳ Học</th>
+                <th>Giảng viên phụ trách</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
@@ -54,15 +57,19 @@
 
                 <td>{{ $class->department ? $class->department->name : '' }}</td>
                 <td>{{ $class->academicYear ? $class->academicYear->term_name : '' }}</td>
+               <td>{{ $class->teacher ? $class->teacher->name : 'Chưa có' }}</td>
+
                 <td>{{ $class->status == 1 ? 'Hoạt động' : 'Không hoạt động' }}</td>
 
                 <td>
+                     @if(auth()->user()->role === 'admin')
                     <a href="{{ route('classes.edit', $class->id) }}" class="btn btn-primary btn-sm">Sửa</a>
                     <form action="{{ route('classes.destroy', $class->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                     </form>
+                     @endif
                 </td>
             </tr>
             @endforeach

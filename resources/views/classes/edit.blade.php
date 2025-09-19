@@ -24,6 +24,19 @@
             </select>
         </div>
         <div class="mb-3">
+            <label>Giảng viên phụ trách</label>
+            <select name="teacher_id" class="form-control">
+                <option value="">-- Chưa có --</option>
+                @foreach($teachers as $teacher)
+                    <option value="{{ $teacher->id }}" 
+                        {{ $class->teacher_id == $teacher->id ? 'selected' : '' }}>
+                        {{ $teacher->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
         <label>Kỳ Học</label>
         <select name="academic_year_id" class="form-control" required>
             @foreach($academicYears as $year)
