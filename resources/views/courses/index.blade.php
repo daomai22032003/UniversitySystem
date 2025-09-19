@@ -8,8 +8,9 @@
     <h2>Quản lý môn học</h2>
     
     <div class="d-flex justify-content-between align-items-center mb-3">
+        @if(auth()->user()->role === 'admin')
     <a href="{{ route('courses.create') }}" class="btn btn-success">+ Thêm môn học</a>
-
+      @endif
     <form action="{{ route('courses.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
         <input type="text" name="search" value="{{ request('search') }}" 
                class="form-control me-2" placeholder="Nhập mã môn học...">
@@ -42,12 +43,14 @@
                 <td>{{ $course->credit }}</td>
                 <td>{{ $course->status ? 'Hoạt động' : 'Ngưng' }}</td>
                 <td>
+                    @if(auth()->user()->role === 'admin')
                     <a href="{{ route('courses.edit', $course) }}" class="btn btn-warning btn-sm">Sửa</a>
                     <form action="{{ route('courses.destroy', $course) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc muốn xóa không?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                     </form>
+                      @endif
                 </td>
             </tr>
             @endforeach

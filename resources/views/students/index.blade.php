@@ -4,7 +4,9 @@
 <div class="container">
     <h2>Danh sách sinh viên</h2>  
      <div class="d-flex justify-content-between align-items-center mb-3">
+    @if(auth()->user()->role === 'admin')
     <a href="{{ route('students.create') }}" class="btn btn-success">+ Thêm sinh viên</a>
+    @endif
     <form action="{{ route('students.index') }}" method="GET" class="d-flex mb-3" style="max-width: 100%;">    
     <input type="text" name="search" value="{{ request('search') }}"
            class="form-control me-2" placeholder="Nhập tên,mã SV...">
@@ -57,11 +59,13 @@
                 <td>{{ $student->email }}</td>
                 <td>{{ $student->phone }}</td>
                 <td>
+                     @if(auth()->user()->role === 'admin')
                     <a href="{{ route('students.edit',$student->id) }}" class="btn btn-primary btn-sm">Sửa</a>
                     <form action="{{ route('students.destroy',$student->id) }}" method="POST" style="display:inline-block;">
                         @csrf @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                     </form>
+                     @endif
                 </td>
             </tr>
             @endforeach

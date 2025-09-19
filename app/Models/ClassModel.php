@@ -15,6 +15,7 @@ class ClassModel extends Model
         'class_name',
         'department_id',       
         'academic_year_id',
+        'teacher_id', 
         'status'               
     ];
 
@@ -29,6 +30,10 @@ class ClassModel extends Model
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
     
-
+ 
 }

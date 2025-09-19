@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Teacher; 
 use App\Models\ClassModel;
 use App\Models\Department;
 use App\Models\AcademicYear;
@@ -12,7 +12,7 @@ class ClassController extends Controller
     // Hiển thị danh sách lớp
    public function index(Request $request)
 {   
-    $query = ClassModel::with(['department', 'academicYear']); 
+    $query = ClassModel::with(['department', 'academicYear', 'teacher']); 
     if ($request->has('search') && $request->search != '') {
         $search = $request->search;
         $query->where(function($q) use ($search) {
@@ -25,6 +25,7 @@ class ClassController extends Controller
     }
     $classes = $query->paginate(10);
     $departments = Department::all();
+    
     return view('classes.index', compact('classes', 'departments'));
 }
 
@@ -32,8 +33,9 @@ class ClassController extends Controller
     public function create()
     {
         $departments = Department::all();
+        $teachers = Teacher::all();
         $academicYears = AcademicYear::all();
-        return view('classes.create', compact('departments', 'academicYears'));
+        return view('classes.create', compact('departments', 'teachers', 'academicYears'));
     }
 
     // Lưu lớp mới
@@ -55,8 +57,9 @@ class ClassController extends Controller
     {
         $class = ClassModel::findOrFail($id);
         $departments = Department::all();
+        $teachers = Teacher::all();
         $academicYears = AcademicYear::all();
-        return view('classes.edit', compact('class', 'departments', 'academicYears'));
+        return view('classes.edit', compact('class', 'departments', 'academicYears', 'teachers'));
     }
 
     // Cập nhật
@@ -68,7 +71,8 @@ class ClassController extends Controller
             'class_code' => 'required|max:20|unique:classes,class_code,' . $class->id,
             'class_name' => 'required|max:100',
             'department_id' => 'required|exists:departments,id',
-            'academic_year_id' => 'required|exists:academic_years,id'
+            'academic_year_id' => 'required|exists:academic_years,id',
+            'teacher_id' => 'nullable|exists:teachers,id',
         ]);
 
         $class->update($request->all());
