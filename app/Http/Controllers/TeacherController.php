@@ -123,4 +123,5 @@ class TeacherController extends Controller
         }
         return redirect()->route('teachers.index')->with('success','Xóa giảng viên thành công!');
     }
+    
 }

@@ -73,20 +73,8 @@
                   <p>Simple Tables</p>
                 </a>
               </li>
-            </ul>
-          </li>
-         
-          <li class="nav-header">EXAMPLES</li>
-
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link">
-              <i class="nav-icon bi bi-box-arrow-in-right"></i>
-              <p>
-                Đăng Xuất              
-              </p>
-            </a>                
-          </li>
-                         
+            </ul>            
+          </li>                                           
             <!--end::Sidebar Menu-->
           </nav>
         </div>

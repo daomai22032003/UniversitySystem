@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -24,7 +25,7 @@ class AuthController extends Controller
     {
         // Validate form
         $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|min:5',
         ]);
 
@@ -40,7 +41,7 @@ class AuthController extends Controller
         // Sai mật khẩu hoặc email
         return back()->withErrors([
             'email' => 'Email hoặc mật khẩu không chính xác.',
-        ])->withInput($request->only('email')); // Giữ lại email
+        ])->withInput($request->only('email'));
     }
 
     // Đăng xuất
@@ -50,5 +51,33 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+
+    // Hiển thị form đổi mật khẩu
+    public function showChangePasswordForm()
+    {
+        return view('auth.passwords.change');
+    }
+
+    // Xử lý đổi mật khẩu
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password'     => 'required|min:6|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        // Kiểm tra mật khẩu hiện tại
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Mật khẩu hiện tại không đúng']);
+        }
+
+        // Cập nhật mật khẩu mới
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('teacher.profile')->with('success', 'Đổi mật khẩu thành công!');
     }
 }
