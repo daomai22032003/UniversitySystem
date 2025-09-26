@@ -22,4 +22,8 @@ class Course extends Model
     {
         return $this->belongsTo(Department::class);
     }
+     public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
 }
