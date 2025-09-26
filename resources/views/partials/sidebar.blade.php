@@ -66,6 +66,12 @@
               </p>             
             </a>
             @endif
+            <a href="{{ route('grades.index') }}" class="nav-link">
+              <i class="nav-icon bi bi-table"></i>
+              <p>
+                Quản lý Điểm               
+              </p>             
+            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./tables/simple.html" class="nav-link">
