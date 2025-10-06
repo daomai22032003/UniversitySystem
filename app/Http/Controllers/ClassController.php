@@ -12,7 +12,18 @@ class ClassController extends Controller
     // Hiển thị danh sách lớp
    public function index(Request $request)
 {   
-    $query = ClassModel::with(['department', 'academicYear', 'teacher']); 
+    $query = ClassModel::with(['department', 'academicYear', 'teacher']);  
+    // Nếu là giảng viên thì chỉ thấy lớp mình phụ trách
+    if (auth()->user()->role == 'teacher') {
+        // Lấy id của teacher từ quan hệ
+        $teacherId = auth()->user()->teacher->id ?? null;
+        if ($teacherId) {
+            $query->where('teacher_id', $teacherId);
+        } else {
+            // Nếu chưa gắn teacher thì không có lớp
+            $query->whereNull('teacher_id');
+        }
+    }   
     if ($request->has('search') && $request->search != '') {
         $search = $request->search;
         $query->where(function($q) use ($search) {
@@ -20,6 +31,7 @@ class ClassController extends Controller
               ->orWhere('class_name', 'like', "%$search%");
         });
     }   
+     
     if ($request->has('department_id') && $request->department_id != '') {
         $query->where('department_id', $request->department_id);
     }

@@ -29,11 +29,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('teachers', TeacherController::class);
         Route::resource('departments', DepartmentController::class);
         Route::resource('academic_years', AcademicYearController::class);
-        Route::resource('grades', GradeController::class);
+        
     });    
     Route::middleware(['role:admin,teacher'])->group(function () {
         Route::resource('classes', ClassController::class);
         Route::resource('courses', CourseController::class);
         Route::resource('students', StudentController::class);
+        Route::resource('grades', GradeController::class);
     });
 });
