@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Course;
 use App\Models\AcademicYear;
+use App\Models\ClassModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class GradeController extends Controller
 {
     // Hiển thị danh sách điểm
@@ -15,7 +17,20 @@ class GradeController extends Controller
     {
         $query = Grade::with(['student.class', 'course', 'academicYear']);
 
-        // nếu có chọn class_id thì lọc
+        $user = Auth::user();
+
+        // Nếu là giảng viên thì chỉ lấy điểm sinh viên lớp mình phụ trách
+        if ($user && $user->role === 'teacher') {
+            $teacher = Teacher::where('user_id', $user->id)->first();
+
+            if ($teacher) {
+                $query->whereHas('student.class', function ($q) use ($teacher) {
+                    $q->where('teacher_id', $teacher->id);
+                });
+            }
+        }
+
+        // Nếu chọn class_id thì lọc thêm
         if ($request->has('class_id') && $request->class_id != '') {
             $query->whereHas('student.class', function ($q) use ($request) {
                 $q->where('id', $request->class_id);
@@ -24,13 +39,13 @@ class GradeController extends Controller
 
         $grades = $query->get();
 
-        // group theo lớp
+        // Group theo lớp
         $gradesByClass = $grades->groupBy(function ($grade) {
             return $grade->student->class->class_name ?? 'Chưa có lớp';
         });
 
-        // để render dropdown filter
-        $classes = \App\Models\ClassModel::all();
+        // Dropdown filter
+        $classes = ClassModel::all();
 
         return view('grades.index', compact('gradesByClass', 'classes'));
     }

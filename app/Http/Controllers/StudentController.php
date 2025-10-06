@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Department;
 use App\Models\ClassModel;
 use App\Models\AcademicYear;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -14,27 +16,47 @@ use Illuminate\Support\Str;
 class StudentController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Student::with(['department','class','academicYear','user']);
+    {
+        $query = Student::with(['department','class','academicYear','user']);
 
-    if ($request->has('class_id')&& $request->class_id != '') {
-        $query->where('class_id', $request->class_id);
+        // Lọc theo lớp
+        if ($request->has('class_id') && $request->class_id != '') {
+            $query->where('class_id', $request->class_id);
+        }
+
+        // Lọc theo tìm kiếm
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('student_code', 'like', "%$search%")
+                ->orWhere('name', 'like', "%$search%");
+            });
+        }
+
+        // Lọc theo quyền giảng viên
+        $user = Auth::user();
+        if ($user && $user->role === 'teacher') {
+            $teacher = Teacher::where('user_id', $user->id)->first();
+
+            if ($teacher) {
+                $query->whereHas('class', function($q) use ($teacher) {
+                    $q->where('teacher_id', $teacher->id);
+                });
+            }
+        }
+
+        // Lọc theo khoa
+        if ($request->has('department_id') && $request->department_id != '') {
+            $query->where('department_id', $request->department_id);
+        }
+
+        // Lấy dữ liệu cuối cùng
+        $students = $query->paginate(10);
+        $classes = ClassModel::all();
+        $departments = Department::all();
+
+        return view('students.index', compact('students','departments', 'classes'));
     }
-     if ($request->has('search') && $request->search != '') {
-        $search = $request->search;
-        $query->where(function($q) use ($search) {
-            $q->where('student_code', 'like', "%$search%")
-              ->orWhere('name', 'like', "%$search%");
-        });
-    }
-    if ($request->has('department_id') && $request->department_id != '') {
-        $query->where('department_id', $request->department_id);
-    }
-    $students = $query->paginate(10);
-     $classes = ClassModel::all();
-     $departments = Department::all();
-    return view('students.index', compact('students','departments', 'classes'));
-}
 
 
     public function create()
