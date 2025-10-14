@@ -9,7 +9,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GradeController;
-
+use App\Http\Controllers\StudentGradeController;
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::middleware('auth')->group(function () {
@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('auth')->group(function () {
     Route::get('/home', [AuthController::class, 'home'])->name('home');
     Route::get('/password/change', [AuthController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/student/grades', [StudentGradeController::class, 'index'])->name('student.grades');
+});
     Route::post('/password/change', [AuthController::class, 'changePassword'])->name('password.update');
 });
     Route::get('/teacher/profile', function () {
