@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class GradeController extends Controller
 {
     // Hiển thị danh sách điểm
-   public function index(Request $request)
+  public function index(Request $request)
     {
         $query = Grade::with(['student.class', 'course', 'academicYear']);
 
         $user = Auth::user();
 
-        // Nếu là giảng viên thì chỉ lấy điểm sinh viên lớp mình phụ trách
+        // Nếu là giảng viên: chỉ lấy điểm sinh viên lớp mình phụ trách
         if ($user && $user->role === 'teacher') {
             $teacher = Teacher::where('user_id', $user->id)->first();
 
@@ -29,25 +29,38 @@ class GradeController extends Controller
                 });
             }
         }
+        if ($request->filled('search')) {
+            $query->whereHas('student', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('student_code', 'like', '%' . $request->search . '%');
+            });
+        }
 
-        // Nếu chọn class_id thì lọc thêm
-        if ($request->has('class_id') && $request->class_id != '') {
+        // Lọc theo lớp
+        if ($request->filled('class_id')) {
             $query->whereHas('student.class', function ($q) use ($request) {
                 $q->where('id', $request->class_id);
             });
         }
+        
+        // Lọc theo môn học
+        if ($request->filled('course_id')) {
+            $query->where('course_id', $request->course_id);
+        }
 
+        // Lấy dữ liệu
         $grades = $query->get();
 
-        // Group theo lớp
+        // Nếu không lọc theo lớp, có thể vẫn muốn nhóm theo lớp để hiển thị
         $gradesByClass = $grades->groupBy(function ($grade) {
             return $grade->student->class->class_name ?? 'Chưa có lớp';
         });
-
-        // Dropdown filter
+        
+        // Dropdown filters
         $classes = ClassModel::all();
+        $courses = Course::all();
 
-        return view('grades.index', compact('gradesByClass', 'classes'));
+        return view('grades.index', compact('gradesByClass', 'classes', 'courses'));
     }
 
 

@@ -24,7 +24,7 @@
             <i class="bi bi-building nav-icon"></i>
             <p>Quản lý Khoa</p>
           </a>
-        </li>
+        </li>        
         @endif
 
         <li class="nav-item">
@@ -62,7 +62,12 @@
         </li>
         @endif
 
-       
+       <li class="nav-item">
+          <a href="{{ route('student.grades') }}" class="nav-link">
+            <i class="bi bi-clipboard-check nav-icon"></i>
+            <p>Xem Điểm</p>
+          </a>
+        </li>
 
       </ul>
     </nav>
