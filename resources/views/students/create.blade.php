@@ -15,6 +15,20 @@
             <label for="name" class="form-label">Họ tên</label>
             <input type="text" name="name" class="form-control" required>
         </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">Ngày sinh</label>
+            <input type="date" name="dob" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="gender" class="form-label">Giới tính</label>
+            <select name="gender" class="form-control">
+                <option value="">-- Chọn giới tính --</option>
+                <option value="1">Nam</option>
+                <option value="0">Nữ</option>
+            </select>
+        </div>
+
 
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>

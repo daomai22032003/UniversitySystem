@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use App\Models\Department;
+use App\Models\Student;
 use App\Models\ClassModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,8 +33,12 @@ class TeacherController extends Controller
     $classes = ClassModel::all();
     $departments = Department::all();
     return view('teachers.index', compact('teachers','departments', 'classes'));
-}
-
+    }
+    public function studentScores($id)
+    {
+        $student = Student::with(['grades.course'])->findOrFail($id);
+        return view('teachers.student_scores', compact('student'));
+    }
 
     public function create()
     {
