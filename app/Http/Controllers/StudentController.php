@@ -58,6 +58,17 @@ class StudentController extends Controller
         return view('students.index', compact('students','departments', 'classes'));
     }
 
+    public function profile()
+    {
+        $user = Auth::user();
+        $student = \App\Models\Student::where('user_id', $user->id)->with('class.department')->first();
+
+        if (!$student) {
+            return redirect()->back()->with('error', 'Không tìm thấy thông tin sinh viên.');
+        }
+
+        return view('students.profile', compact('student'));
+    }
 
     public function create()
     {
@@ -98,6 +109,8 @@ class StudentController extends Controller
         Student::create([
             'student_code'     => $request->student_code,
             'name'             => $request->name,
+            'dob'              => $request->dob,      
+            'gender'           => $request->gender,    
             'email'            => $request->email,
             'phone'            => $request->phone, 
             'department_id'    => $request->department_id,
@@ -141,6 +154,8 @@ class StudentController extends Controller
         $student->update([
             'student_code'     => $request->student_code,
             'name'             => $request->name,
+            'dob'              => $request->dob,      
+            'gender'           => $request->gender,    
             'email'            => $request->email,
             'phone'            => $request->phone,
             'department_id'    => $request->department_id,

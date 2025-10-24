@@ -63,6 +63,18 @@ class GradeController extends Controller
         return view('grades.index', compact('gradesByClass', 'classes', 'courses'));
     }
 
+    public function showByStudent($id)
+    {
+        $student = \App\Models\Student::with(['grades.course', 'class'])->findOrFail($id);
+        $teacher = auth()->user()->teacher;
+
+        // Nếu muốn kiểm tra quyền (chỉ cho xem sinh viên lớp chủ nhiệm)
+        if ($teacher && $student->class->teacher_id !== $teacher->id) {
+            abort(403, 'Bạn không có quyền xem điểm của sinh viên này.');
+        }
+
+        return view('grades.student_scores', compact('student'));
+    }
 
     // Form thêm mới
     public function create()
